@@ -1,3 +1,4 @@
+numpy
 amqp==2.4.2
 Babel==2.6.0
 billiard==3.6.0.0
