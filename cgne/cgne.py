@@ -25,7 +25,7 @@ def main():
 
     tst = np.multiply(H, 0)
     print('#1')
-    r = np.subtract(g, np.transpose(tst))
+    r = g # np.subtract(g, np.transpose(tst))
     print('#2')
     p = np.matmul(H, r)
     print('#3')
@@ -39,12 +39,12 @@ def main():
     i = 0
     # 4.    Executar até que a norma L2 do resíduo (r) seja menor do que 1e10-4 .
     # while r < 0.0001:
-    for i in range(0, 1):
+    for i in range(0, 10):
         # GET alpha i
         alpha = get_alpha(p, r)
 
         # GET fi+1
-        f_next = np.add(f, np.matmul(alpha, p))
+        f_next = np.add(f, np.multiply(alpha, p))
 
         # GET ri+1
         aux1 = np.matmul(np.transpose(H), p)
@@ -57,7 +57,7 @@ def main():
         # GET pi+1
         # transp = np.transpose(H)
         aux1 = np.matmul(H, r_next)
-        aux = np.matmul(beta, p)
+        aux = np.multiply(beta, p)
         p_next = np.add(aux1, aux)
 
         # Atualizar valores antigos
@@ -70,9 +70,9 @@ def main():
         print("STILL RUNNING [{}]".format(mark))
 
     print("END")
-    print('P:')
-    print(p)
-    print(p.shape)
+    print('F:')
+    print(f)
+    print(f.shape)
     print('R:')
     print(r)
     print(r.shape)
@@ -89,14 +89,14 @@ def read_matrix_from_file(filename):
 def get_alpha(p, r):
     alpha0 = np.matmul(np.transpose(r), r)
     alpha1 = np.matmul(np.transpose(p), p)
-    alpha = np.nan_to_num(np.divide(alpha0, alpha1))
+    alpha = np.divide(alpha0, alpha1)
     return alpha
 
 
 def get_beta(r_next, r):
     beta0 = np.matmul(np.transpose(r_next), r_next)
     beta1 = np.matmul(np.transpose(r), r)
-    beta = np.nan_to_num(np.divide(beta0, beta1))
+    beta = np.divide(beta0, beta1)
     return beta
 
 
