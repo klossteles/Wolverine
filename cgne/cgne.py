@@ -11,6 +11,8 @@
 import numpy as np
 import csv
 import time
+import matplotlib.pyplot as plt
+import numpy.linalg as la
 
 
 def main():
@@ -25,7 +27,7 @@ def main():
 
     tst = np.multiply(H, 0)
     print('#1')
-    r = g # np.subtract(g, np.transpose(tst))
+    r = g
     print('#2')
     p = np.matmul(H, r)
     print('#3')
@@ -38,8 +40,7 @@ def main():
 
     i = 0
     # 4.    Executar até que a norma L2 do resíduo (r) seja menor do que 1e10-4 .
-    # while r < 0.0001:
-    for i in range(0, 10):
+    while la.norm(r) >= 0.0001:
         # GET alpha i
         alpha = get_alpha(p, r)
 
@@ -66,8 +67,7 @@ def main():
         f = f_next
         # i += 1
 
-        mark = '|' if i % 2 == 0 else '-'
-        print("STILL RUNNING [{}]".format(mark))
+        print("STILL RUNNING")
 
     print("END")
     print('F:')
@@ -77,7 +77,11 @@ def main():
     print(r)
     print(r.shape)
 
+    final = np.reshape(f, (60, 60))
+    plt.imsave('output.png', final)
+
     print(time.time() - start_time)
+    return final
 
 
 def read_matrix_from_file(filename):
