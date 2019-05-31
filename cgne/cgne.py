@@ -10,9 +10,12 @@
 
 import numpy as np
 import csv
+import time
 
 
 def main():
+    start_time = time.time()
+
     g = read_matrix_from_file('./cgne/g-1.txt')
     print('G loaded')
 
@@ -67,7 +70,14 @@ def main():
         print("STILL RUNNING [{}]".format(mark))
 
     print("END")
+    print('P:')
+    print(p)
+    print(p.shape)
+    print('R:')
     print(r)
+    print(r.shape)
+
+    print(time.time() - start_time)
 
 
 def read_matrix_from_file(filename):
