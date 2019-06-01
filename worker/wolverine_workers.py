@@ -8,12 +8,5 @@ app = Celery('wolverine_workers', broker='redis://localhost:6379/0', backend='re
 
 
 @app.task()
-def some_long_processing(inputs):
-    outputs = inputs[::-1]
-    time.sleep(50)
-    return outputs
-
-
-@app.task()
 def process_with_cgne():
     cgne.cgne(process_with_cgne.request.id)
