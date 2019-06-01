@@ -4,7 +4,6 @@ from celery.result import AsyncResult
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.urls import reverse
 
 import worker
 from userint.forms import UploadFileForm
@@ -33,6 +32,15 @@ def cgne(request):
     else:
         form = UploadFileForm()
         return render(request, 'cgne.html', {'form': form})
+
+
+@login_required
+def cgne_details(request, signal_output_id):
+    from userint.models import SignalOutput
+
+    signal_output = SignalOutput.objects.get(pk=signal_output_id)
+
+    return render(request, 'cgne_details.html', {'signal_output': signal_output})
 
 
 @login_required

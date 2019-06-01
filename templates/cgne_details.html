@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Signal Output Details</title>
+</head>
+<body>
+  <h1>Wolverine</h1>
+
+  <h2>Details of {{ signal_output.output_filename }}</h2>
+
+  <table>
+    <tr>
+      <td>
+        Started at
+      </td>
+      <td>
+        Finished at
+      </td>
+      <td>
+        Pixel Quantity
+      </td>
+      <td>
+        Iteration Number
+      </td>
+      <td>
+        Preview
+      </td>
+    </tr>
+    <tr>
+      <td>{{ signal_output.started_at }}</td>
+      <td>{{ signal_output.finished_at }}</td>
+      <td>{{ signal_output.pixel_size }}</td>
+      <td>{{ signal_output.iteration_number }}</td>
+      <td><img src="{% url 'image' signal_output.output_filename %}"></td>
+    </tr>
+  </table>
+
+</body>
+</html>

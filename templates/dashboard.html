@@ -22,9 +22,9 @@
       <td>{{ signal_input.id }}</td>
       <td>{{ signal_input.input_filename }}</td>
       {% if signal_input.signaloutput_set.count %}
-        <td>Processed</td>
+        <td><a href="{% url 'cgne_details' signal_input.signaloutput_set.get.id %}">Processed</a></td>
       {% else %}
-        <td>Not processed yet</td>
+        <td>Processing</td>
       {% endif %}
     </tr>
   {% endfor %}
