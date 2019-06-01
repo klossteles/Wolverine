@@ -32,7 +32,17 @@
 - [x] Salvar o resultado.
 
 
-## Running
+### Requisitos Não-funcionais
+
+- [ ] Bootstrap 4
+- [ ] Registro de usuários
+- [ ] Salvar e carregar arquivos de diretório específico (ENV)
+- [ ] Carregar arquivo do modelo de diretório específico (ENV)
+- [ ] Fluxos de exceção nas telas
+- [ ] Redirect e flash nos formulários
+
+
+## Rodando o Projeto
 
 ### Redis
 ```
