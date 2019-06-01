@@ -10,7 +10,7 @@
 - [x] Realizar o controle de ganho de sinal através do procedimento descrito abaixo;
 - [x] Enviar o sinal tratado para um servidor de reconstrução de imagens;
 - [x] Carregar a partir do servidor todas as imagens reconstruídas por um usuário.
-- [ ] Selecionar uma ou mais imagens e salvar localmente.
+- [x] Selecionar uma ou mais imagens e salvar localmente.
 
 #### Cada imagem deverá conter no mínimo os seguintes dados:
 

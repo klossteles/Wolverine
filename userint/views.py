@@ -1,4 +1,5 @@
 import os
+import zipfile
 
 from celery.result import AsyncResult
 from django.contrib.auth.decorators import login_required
@@ -73,4 +74,26 @@ def image(request, task_id):
     with open(os.path.join(settings.BASE_DIR, image_filename), 'rb') as image_file:
         response = HttpResponse(image_file.read(), content_type='image/png')
         response['Content-Disposition'] = 'inline; filename=' + image_filename
+        return response
+
+
+@login_required
+def download_images(request):
+    field_names = [field_name for field_name in request.POST if 'signaloutput' in field_name]
+    signal_output_ids = [signaloutput_id.split('_')[1] for signaloutput_id in field_names]
+    print(signal_output_ids)
+
+    from userint.models import SignalOutput
+    signal_outputs = SignalOutput.objects.filter(pk__in=signal_output_ids)
+
+    zip = zipfile.ZipFile('temp.zip', 'w')
+    for signal_output in signal_outputs:
+        zip.write('{}.png'.format(signal_output.output_filename))
+
+    zip.close()
+
+    with open('temp.zip', 'rb') as raw_zipfile:
+        response = HttpResponse(raw_zipfile.read())
+        response['Content-Disposition'] = u'attachment; filename={0}'.format('signal_output_bundle.zip')
+        response['Content-Type'] = 'application/x-zip'
         return response
