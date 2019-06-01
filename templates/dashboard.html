@@ -9,6 +9,26 @@
 
   <p>Welcome to Wolverine, {{ user.username }}</p>
 
-  <img src="{{ image_url }}">
+  <a href="{% url 'cgne' %}"></a>
+
+  <table>
+  <tr>
+    <th>Id</th>
+    <th>Input Filename</th>
+    <th>Status</th>
+  </tr>
+  {% for signal_input in signal_inputs %}
+    <tr>
+      <td>{{ signal_input.id }}</td>
+      <td>{{ signal_input.input_filename }}</td>
+      {% if signal_input.signaloutput_set.count %}
+        <td>Processed</td>
+      {% else %}
+        <td>Not processed yet</td>
+      {% endif %}
+    </tr>
+  {% endfor %}
+</table>
+
 </body>
 </html>

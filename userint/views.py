@@ -17,8 +17,14 @@ def cgne(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            file_name = save_file(request.FILES['file'])
-            task = worker.wolverine_workers.process_with_cgne.delay(file_name)
+            from userint.models import SignalInput
+
+            signal_input = SignalInput()
+            signal_input.input_filename = save_file(request.FILES['file'])
+            signal_input.owner = request.user
+            signal_input.save()
+
+            task = worker.wolverine_workers.process_with_cgne.delay(signal_input.id)
             message = 'The file is being processed with id: {}'.format(task.task_id)
         else:
             message = 'You must select a file'
@@ -41,11 +47,13 @@ def obtain_image(request, task_id):
 @login_required
 def dashboard(request):
     user = request.user
-    image_url = reverse('image', kwargs={'task_id': 'aa4dae91-8f98-4715-885b-fb7cc7955456'})
+
+    from userint.models import SignalInput
+    signal_inputs = SignalInput.objects.all()
 
     return render(request, 'dashboard.html', {
         'user': user,
-        'image_url': image_url,
+        'signal_inputs': signal_inputs,
     })
 
 
