@@ -7,13 +7,26 @@ from django.shortcuts import render
 from django.urls import reverse
 
 import worker
+from userint.forms import UploadFileForm
+from userint.utils import save_file
 from wolverine import settings
 
 
 @login_required
 def cgne(request):
-    task = worker.wolverine_workers.process_with_cgne.delay()
-    return HttpResponse('Your image was dispatched to workers. Task id: {}'.format(task.task_id))
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file_name = save_file(request.FILES['file'])
+            task = worker.wolverine_workers.process_with_cgne.delay(file_name)
+            message = 'The file is being processed with id: {}'.format(task.task_id)
+        else:
+            message = 'You must select a file'
+
+        return render(request, 'cgne.html', {'form': form, 'message': message})
+    else:
+        form = UploadFileForm()
+        return render(request, 'cgne.html', {'form': form})
 
 
 @login_required

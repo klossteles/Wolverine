@@ -8,8 +8,8 @@ app = Celery('wolverine_workers', broker='redis://localhost:6379/0', backend='re
 
 
 @app.task()
-def process_with_cgne():
-    result = cgne.cgne('./cgne/g-1.txt')
+def process_with_cgne(file_name):
+    result = cgne.cgne(file_name)
 
     task_id = process_with_cgne.request.id
     plt.imsave('{}.png'.format(task_id), result)
