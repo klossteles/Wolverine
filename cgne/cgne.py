@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 import numpy.linalg as la
 
 
-def cgne():
+def cgne(task_id):
     start_time = time.time()
 
     g = read_matrix_from_file('./cgne/g-1.txt')
@@ -57,8 +57,10 @@ def cgne():
         f = f_next
 
     final = np.reshape(f, (60, 60))
+    plt.imsave('{}.png'.format(task_id), final)
 
     print(time.time() - start_time)
+
     return final
 
 
