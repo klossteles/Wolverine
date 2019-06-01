@@ -15,30 +15,21 @@ import matplotlib.pyplot as plt
 import numpy.linalg as la
 
 
-def main():
+def cgne():
     start_time = time.time()
 
     g = read_matrix_from_file('./cgne/g-1.txt')
-    print('G loaded')
 
-    H = read_matrix_from_file('./cgne/H-1.txt')
-    H = np.transpose(H)
-    print('H loaded')
+    h = read_matrix_from_file('./cgne/H-1.txt')
+    h = np.transpose(h)
 
-    tst = np.multiply(H, 0)
-    print('#1')
     r = g
-    print('#2')
-    p = np.matmul(H, r)
-    print('#3')
+    p = np.matmul(h, r)
 
     alpha = get_alpha(p, r)
-    print('#4')
 
     f = np.multiply(alpha, p)
-    print('#5')
 
-    i = 0
     # 4.    Executar até que a norma L2 do resíduo (r) seja menor do que 1e10-4 .
     while la.norm(r) >= 0.0001:
         # GET alpha i
@@ -48,7 +39,7 @@ def main():
         f_next = np.add(f, np.multiply(alpha, p))
 
         # GET ri+1
-        aux1 = np.matmul(np.transpose(H), p)
+        aux1 = np.matmul(np.transpose(h), p)
         aux = np.matmul(alpha, np.transpose(aux1))
         r_next = np.subtract(r, np.transpose(aux))
 
@@ -56,8 +47,7 @@ def main():
         beta = get_beta(r_next, r)
 
         # GET pi+1
-        # transp = np.transpose(H)
-        aux1 = np.matmul(H, r_next)
+        aux1 = np.matmul(h, r_next)
         aux = np.multiply(beta, p)
         p_next = np.add(aux1, aux)
 
@@ -65,20 +55,8 @@ def main():
         r = r_next
         p = p_next
         f = f_next
-        # i += 1
-
-        print("STILL RUNNING")
-
-    print("END")
-    print('F:')
-    print(f)
-    print(f.shape)
-    print('R:')
-    print(r)
-    print(r.shape)
 
     final = np.reshape(f, (60, 60))
-    plt.imsave('output.png', final)
 
     print(time.time() - start_time)
     return final
@@ -102,6 +80,3 @@ def get_beta(r_next, r):
     beta1 = np.matmul(np.transpose(r), r)
     beta = np.divide(beta0, beta1)
     return beta
-
-
-main()

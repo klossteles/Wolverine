@@ -4,7 +4,7 @@
 
 ### Atividade 1
 
-- Implementar uma aplicação cliente com as seguintes características:
+#### Implementar uma aplicação cliente com as seguintes características:
 
 - [ ] Carregar a partir de um arquivo local um sinal de ultrassom;
 - [x] Realizar o controle de ganho de sinal através do procedimento descrito abaixo;
@@ -23,7 +23,7 @@
 
 ### Atividade 2
 
-- Implementar um servidor para reconstrução de imagens:
+#### Implementar um servidor para reconstrução de imagens:
 
 - [ ] Receber os dados para reconstrução;
 - [ ] Carregar o modelo de reconstrução de acordo com os parâmetros recebidos;
