@@ -9,16 +9,16 @@
 - [x] Carregar a partir de um arquivo local um sinal de ultrassom;
 - [x] Realizar o controle de ganho de sinal através do procedimento descrito abaixo;
 - [x] Enviar o sinal tratado para um servidor de reconstrução de imagens;
-- [ ] Carregar a partir do servidor todas as imagens reconstruídas por um usuário.
+- [x] Carregar a partir do servidor todas as imagens reconstruídas por um usuário.
 - [ ] Selecionar uma ou mais imagens e salvar localmente.
 
 #### Cada imagem deverá conter no mínimo os seguintes dados:
 
-- [ ] Identificação do usuário;
-- [ ] Data e hora do início da reconstrução;
-- [ ] Data e hora do término da reconstrução;
-- [ ] Tamanho em pixels;
-- [ ] O número de iterações executadas.
+- [x] Identificação do usuário;
+- [x] Data e hora do início da reconstrução;
+- [x] Data e hora do término da reconstrução;
+- [x] Tamanho em pixels;
+- [x] O número de iterações executadas.
 
 
 ### Atividade 2
