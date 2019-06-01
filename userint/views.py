@@ -57,7 +57,7 @@ def dashboard(request):
     user = request.user
 
     from userint.models import SignalInput
-    signal_inputs = SignalInput.objects.all()
+    signal_inputs = SignalInput.objects.all().prefetch_related()
 
     return render(request, 'dashboard.html', {
         'user': user,

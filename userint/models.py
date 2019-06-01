@@ -8,7 +8,7 @@ class SignalInput(models.Model):
 
 
 class SignalOutput(models.Model):
-    signal_input = models.ForeignKey(SignalInput, on_delete=models.DO_NOTHING)
+    signal_input = models.OneToOneField(SignalInput, on_delete=models.DO_NOTHING)
 
     output_filename = models.FilePathField()
     started_at = models.DateTimeField()
