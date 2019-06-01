@@ -8,17 +8,17 @@
 #
 # Imagem A, 60x60 pixels, H(50816x3600), g(50816x1):
 
-import numpy as np
 import csv
 import time
-import matplotlib.pyplot as plt
+
+import numpy as np
 import numpy.linalg as la
 
 
-def cgne(task_id):
+def cgne(signal_filename):
     start_time = time.time()
 
-    g = read_matrix_from_file('./cgne/g-1.txt')
+    g = read_matrix_from_file(signal_filename)
 
     h = read_matrix_from_file('./cgne/H-1.txt')
     h = np.transpose(h)
@@ -57,7 +57,6 @@ def cgne(task_id):
         f = f_next
 
     final = np.reshape(f, (60, 60))
-    plt.imsave('{}.png'.format(task_id), final)
 
     print(time.time() - start_time)
 

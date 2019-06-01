@@ -1,4 +1,4 @@
-import time
+import matplotlib.pyplot as plt
 
 from celery import Celery
 
@@ -9,4 +9,7 @@ app = Celery('wolverine_workers', broker='redis://localhost:6379/0', backend='re
 
 @app.task()
 def process_with_cgne():
-    cgne.cgne(process_with_cgne.request.id)
+    result = cgne.cgne('./cgne/g-1.txt')
+
+    task_id = process_with_cgne.request.id
+    plt.imsave('{}.png'.format(task_id), result)
