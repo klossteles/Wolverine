@@ -12,7 +12,7 @@
 - [ ] Carregar a partir do servidor todas as imagens reconstruídas por um usuário.
 - [ ] Selecionar uma ou mais imagens e salvar localmente.
 
-- Cada imagem deverá conter no mínimo os seguintes dados:
+#### Cada imagem deverá conter no mínimo os seguintes dados:
 
 - [ ] Identificação do usuário;
 - [ ] Data e hora do início da reconstrução;
