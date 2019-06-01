@@ -9,12 +9,14 @@
 
   <p>Welcome to Wolverine, {{ user.username }}</p>
 
-  <a href="{% url 'cgne' %}"></a>
+  <nav>
+    <a href="{% url 'cgne' %}">Upload Signal File</a>
+    <a href="{% url 'logout' %}">Logout</a>
+  </nav>
 
   <table>
   <tr>
     <th>Id</th>
-    <th>Input Filename</th>
     <th>Status</th>
     <th>Started at</th>
     <th>Finished at</th>
@@ -25,7 +27,6 @@
   {% for signal_input in signal_inputs %}
     <tr>
       <td>{{ signal_input.id }}</td>
-      <td>{{ signal_input.input_filename }}</td>
       {% if signal_input.signaloutput.id %}
         <td><a href="{% url 'cgne_details' signal_input.signaloutput.id %}">Processed</a></td>
         <td>{{ signal_input.signaloutput.started_at }}</td>

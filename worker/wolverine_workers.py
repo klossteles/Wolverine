@@ -1,5 +1,4 @@
 import os
-import time
 from datetime import datetime
 
 import matplotlib.pyplot as plt
@@ -21,7 +20,7 @@ def process_with_cgne(signal_input_id):
 
     signal_input = SignalInput.objects.get(pk=signal_input_id)
 
-    result = cgne.cgne(signal_input.input_filename)
+    result, iteration_qty, size_in_pixels = cgne.cgne(signal_input.input_filename)
 
     task_id = process_with_cgne.request.id
     plt.imsave('{}.png'.format(task_id), result)
@@ -31,6 +30,6 @@ def process_with_cgne(signal_input_id):
     signal_output.output_filename = task_id
     signal_output.started_at = started_at
     signal_output.finished_at = datetime.now()
-    signal_output.iteration_number = 100
-    signal_output.pixel_size = 100
+    signal_output.iteration_number = iteration_qty
+    signal_output.pixel_size = size_in_pixels
     signal_output.save()

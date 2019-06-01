@@ -20,6 +20,8 @@ def cgne(signal_filename):
 
     g = read_matrix_from_file(signal_filename)
 
+    size_in_pixels = g.shape[0] * g.shape[1]
+
     h = read_matrix_from_file('./cgne/H-1.txt')
     h = np.transpose(h)
 
@@ -31,6 +33,7 @@ def cgne(signal_filename):
     f = np.multiply(alpha, p)
 
     # 4.    Executar até que a norma L2 do resíduo (r) seja menor do que 1e10-4 .
+    iteration = 0
     while la.norm(r) >= 0.0001:
         # GET alpha i
         alpha = get_alpha(p, r)
@@ -56,11 +59,13 @@ def cgne(signal_filename):
         p = p_next
         f = f_next
 
+        iteration += 1
+
     final = np.reshape(f, (60, 60))
 
     print(time.time() - start_time)
 
-    return final
+    return final, iteration, size_in_pixels
 
 
 def read_matrix_from_file(filename):

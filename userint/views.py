@@ -2,7 +2,7 @@ import os
 
 from celery.result import AsyncResult
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 
 import worker
@@ -39,6 +39,8 @@ def cgne_details(request, signal_output_id):
     from userint.models import SignalOutput
 
     signal_output = SignalOutput.objects.get(pk=signal_output_id)
+    if signal_output.signal_input.owner != request.user:
+        return HttpResponseNotFound()
 
     return render(request, 'cgne_details.html', {'signal_output': signal_output})
 
@@ -57,7 +59,7 @@ def dashboard(request):
     user = request.user
 
     from userint.models import SignalInput
-    signal_inputs = SignalInput.objects.all().prefetch_related()
+    signal_inputs = SignalInput.objects.filter(owner=request.user).prefetch_related()
 
     return render(request, 'dashboard.html', {
         'user': user,
