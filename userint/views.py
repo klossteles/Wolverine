@@ -1,7 +1,6 @@
 import os
 import zipfile
 
-from celery.result import AsyncResult
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
@@ -44,15 +43,6 @@ def cgne_details(request, signal_output_id):
         return HttpResponseNotFound()
 
     return render(request, 'cgne_details.html', {'signal_output': signal_output})
-
-
-@login_required
-def obtain_image(request, task_id):
-    res = AsyncResult(task_id)
-    if res.ready():
-        return HttpResponse('The image was saved')
-    else:
-        return HttpResponse('The task is not ready yet')
 
 
 @login_required
