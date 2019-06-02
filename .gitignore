@@ -2,3 +2,9 @@ db.sqlite3
 __pycache__/
 *.py[cod]
 .idea/
+.DS_Store
+
+/temp
+/user_files
+
+model.txt

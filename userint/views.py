@@ -19,7 +19,7 @@ def cgne(request):
             from userint.models import SignalInput
 
             signal_input = SignalInput()
-            signal_input.input_filename = save_file(request.FILES['file'])
+            signal_input.input_filename = save_file(request.user.username, request.FILES['file'])
             signal_input.owner = request.user
             signal_input.save()
 
@@ -58,8 +58,14 @@ def dashboard(request):
 
 
 @login_required
-def image(request, task_id):
-    image_filename = '{}.png'.format(task_id)
+def image(request, signal_output_id):
+    from userint.models import SignalOutput
+    signal_output = get_object_or_404(SignalOutput, pk=signal_output_id)
+    if signal_output.signal_input.owner != request.user:
+        return HttpResponseNotFound()
+
+    image_filename = signal_output.output_filename
+
     with open(os.path.join(settings.BASE_DIR, image_filename), 'rb') as image_file:
         response = HttpResponse(image_file.read(), content_type='image/png')
         response['Content-Disposition'] = 'inline; filename=' + image_filename
@@ -74,14 +80,20 @@ def download_images(request):
     from userint.models import SignalOutput
     signal_outputs = SignalOutput.objects.filter(pk__in=signal_output_ids, signal_input__owner=request.user)
 
-    zip = zipfile.ZipFile('temp.zip', 'w')
+    import time
+    zip_filename = os.path.join(settings.TEMP_DIR, '{}.zip'.format(time.time()))
+
+    zip = zipfile.ZipFile(zip_filename, 'w')
     for signal_output in signal_outputs:
-        zip.write('{}.png'.format(signal_output.output_filename))
+        zip.write(signal_output.output_filename, os.path.basename(signal_output.output_filename))
 
     zip.close()
 
-    with open('temp.zip', 'rb') as raw_zipfile:
-        response = HttpResponse(raw_zipfile.read())
-        response['Content-Disposition'] = u'attachment; filename={0}'.format('signal_output_bundle.zip')
-        response['Content-Type'] = 'application/x-zip'
-        return response
+    try:
+        with open(zip_filename, 'rb') as raw_zipfile:
+            response = HttpResponse(raw_zipfile.read())
+            response['Content-Disposition'] = u'attachment; filename={0}'.format('signal_output_bundle.zip')
+            response['Content-Type'] = 'application/x-zip'
+            return response
+    finally:
+        os.remove(zip_filename)

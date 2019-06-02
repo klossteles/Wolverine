@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from celery import Celery
 
 from cgne import cgne
+from userint import utils
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wolverine.settings')
 
@@ -23,11 +24,14 @@ def process_with_cgne(signal_input_id):
     result, iteration_qty, size_in_pixels = cgne.cgne(signal_input.input_filename)
 
     task_id = process_with_cgne.request.id
-    plt.imsave('{}.png'.format(task_id), result)
+    username = signal_input.owner.username
+
+    output_filename = os.path.join(utils.userpath(username), '{}.png'.format(task_id))
+    plt.imsave(output_filename, result)
 
     signal_output = SignalOutput()
     signal_output.signal_input = signal_input
-    signal_output.output_filename = task_id
+    signal_output.output_filename = output_filename
     signal_output.started_at = started_at
     signal_output.finished_at = datetime.now()
     signal_output.iteration_number = iteration_qty

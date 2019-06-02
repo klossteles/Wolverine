@@ -14,6 +14,8 @@ import time
 import numpy as np
 import numpy.linalg as la
 
+from wolverine import settings
+
 
 def cgne(signal_filename):
     start_time = time.time()
@@ -22,7 +24,7 @@ def cgne(signal_filename):
 
     size_in_pixels = g.shape[0] * g.shape[1]
 
-    h = read_matrix_from_file('./cgne/H-1.txt')
+    h = read_matrix_from_file(settings.MODEL_FILENAME)
     h = np.transpose(h)
 
     r = g
