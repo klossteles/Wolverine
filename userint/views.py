@@ -53,16 +53,6 @@ def cgne(request):
 
 
 @login_required
-def cgne_details(request, signal_output_id):
-    from userint.models import SignalOutput
-    signal_output = get_object_or_404(SignalOutput, pk=signal_output_id)
-    if signal_output.signal_input.owner != request.user:
-        return HttpResponseNotFound()
-
-    return render(request, 'cgne_details.html', {'signal_output': signal_output})
-
-
-@login_required
 def dashboard(request):
     user = request.user
 

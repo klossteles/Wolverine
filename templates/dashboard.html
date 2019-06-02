@@ -17,7 +17,7 @@
       <th>Started at</th>
       <th>Finished at</th>
       <th>Pixel Quantity</th>
-      <th>Iteration Number</th>
+      <th>Number of Iterations</th>
       <th>Image</th>
       <th>Select to Download</th>
     </tr>
@@ -25,7 +25,7 @@
       <tr>
         <td>{{ signal_input.id }}</td>
         {% if signal_input.signaloutput.id %}
-          <td><a href="{% url 'cgne_details' signal_input.signaloutput.id %}">Processed</a></td>
+          <td>Processed</td>
           <td>{{ signal_input.signaloutput.started_at }}</td>
           <td>{{ signal_input.signaloutput.finished_at }}</td>
           <td>{{ signal_input.signaloutput.pixel_size }}</td>
@@ -33,7 +33,7 @@
           <td><img src="{% url 'image' signal_input.signaloutput.id %}"></td>
           <td class="text-center"><input type="checkbox" name="signaloutput_{{ signal_input.signaloutput.id }}"></td>
         {% else %}
-          <td colspan="7">Processing</td>
+          <td colspan="7">Processing...</td>
         {% endif %}
       </tr>
     {% endfor %}
