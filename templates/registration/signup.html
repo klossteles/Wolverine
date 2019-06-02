@@ -2,26 +2,24 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %} Login {% endblock %}
+{% block title %} Signup {% endblock %}
 
 {% block content %}
 
   <div class="offset-md-3 col-sm-6 col-md-6">
-    <h1 class="mt-5">Wolverine Login</h1>
+    <h1 class="mt-5">Signup to Wolverine</h1>
 
     <div class=" card card-body bg-light">
       <form method="post" class="form">
         {% csrf_token %}
 
         {{ form.username|as_crispy_field }}
-        {{ form.password|as_crispy_field }}
+        {{ form.password1|as_crispy_field }}
+        {{ form.password2|as_crispy_field }}
 
-        <button type="submit" class="btn btn-success">Login</button>
+        <button type="submit" class="btn btn-success">Registrar-se</button>
       </form>
-
-      <p class="mt-3">No user? <a href="{% url 'signup' %}">Sign up</a></p>
     </div>
   </div>
 
 {% endblock %}
-

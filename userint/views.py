@@ -1,14 +1,32 @@
 import os
 import zipfile
 
+from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseNotFound
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 import worker
 from userint.forms import UploadFileForm
 from userint.utils import save_file
 from wolverine import settings
+
+
+def signup(request):
+    from django.contrib.auth.forms import UserCreationForm
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            authenticate(username=username, password=raw_password)
+            return redirect('dashboard')
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'registration/signup.html', {'form': form})
 
 
 @login_required
