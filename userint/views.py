@@ -72,7 +72,7 @@ def download_images(request):
     signal_output_ids = [signaloutput_id.split('_')[1] for signaloutput_id in field_names]
 
     from userint.models import SignalOutput
-    signal_outputs = SignalOutput.objects.filter(pk__in=signal_output_ids)
+    signal_outputs = SignalOutput.objects.filter(pk__in=signal_output_ids, signal_input__owner=request.user)
 
     zip = zipfile.ZipFile('temp.zip', 'w')
     for signal_output in signal_outputs:
