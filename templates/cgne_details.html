@@ -1,24 +1,20 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Signal Output Details</title>
-</head>
-<body>
-  <h1>Wolverine</h1>
+{% extends 'base.html' %}
 
-  <h2>Details of {{ signal_output.output_filename }}</h2>
+{% block title %} Details {% endblock %}
 
-  <table>
+{% block content %}
+
+  <div class="alert alert-light">
+    Details of {{ signal_output.output_filename }}
+  </div>
+
+  <table class="table table-striped">
     <tr>
-      <td>Started at</td>
-      <td>Finished at</td>
-      <td>Pixel Quantity</td>
-      <td>Iteration Number</td>
-      <td>Image</td>
+      <th>Started at</th>
+      <th>Finished at</th>
+      <th>Pixel Quantity</th>
+      <th>Iteration Number</th>
+      <th>Image</th>
     </tr>
     <tr>
       <td>{{ signal_output.started_at }}</td>
@@ -29,5 +25,4 @@
     </tr>
   </table>
 
-</body>
-</html>
+{% endblock %}

@@ -34,7 +34,7 @@
 
 ### Requisitos Não-funcionais
 
-- [ ] Bootstrap 4
+- [x] Bootstrap 4
 - [ ] Registro de usuários
 - [ ] Salvar e carregar arquivos de diretório específico (ENV)
 - [ ] Carregar arquivo do modelo de diretório específico (ENV)

@@ -1,22 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Dashboard</title>
-</head>
-<body>
-  <h1>Wolverine</h1>
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+  <h1 class="mt-5">Wolverine</h1>
 
   <p>Welcome to Wolverine, {{ user.username }}</p>
 
-  <nav>
-    <a href="{% url 'cgne' %}">Upload Signal File</a>
-    <a href="{% url 'logout' %}">Logout</a>
-  </nav>
-
   <form method="post" action="{% url 'download_images' %}">
     {% csrf_token %}
-    <table>
+    <table class="table table-striped">
     <tr>
       <th>Id</th>
       <th>Status</th>
@@ -37,15 +31,16 @@
           <td>{{ signal_input.signaloutput.pixel_size }}</td>
           <td>{{ signal_input.signaloutput.iteration_number }}</td>
           <td><img src="{% url 'image' signal_input.signaloutput.output_filename %}"></td>
-          <td><input type="checkbox" name="signaloutput_{{ signal_input.signaloutput.id }}"></td>
+          <td class="text-center"><input type="checkbox" name="signaloutput_{{ signal_input.signaloutput.id }}"></td>
         {% else %}
-          <td>Processing</td>
+          <td colspan="7">Processing</td>
         {% endif %}
       </tr>
     {% endfor %}
     </table>
-    <button type="submit">Download Selected</button>
+    <div class="text-right">
+      <button type="submit" class="btn btn-success align-right">Download Selected</button>
+    </div>
   </form>
 
-</body>
-</html>
+{% endblock %}

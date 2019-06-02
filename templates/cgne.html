@@ -1,23 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Upload Signal File</title>
-</head>
-<body>
-  <h1>Wolverine</h1>
+{% extends 'base.html' %}
 
-  <h2>Upload Signal File</h2>
+{% load crispy_forms_tags %}
+
+{% block title %}Upload Signal File{% endblock %}
+
+{% block content %}
+
+
+  <h1 class="mt-5">Upload Signal File</h1>
 
   {% if message %}
-    <p>{{ message }}</p>
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
   {% endif %}
 
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Upload</button>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Upload</span>
+      </div>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="file" name="file">
+        <label class="custom-file-label" for="file">Choose file</label>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Upload</button>
   </form>
 
-</body>
-</html>
+{% endblock %}

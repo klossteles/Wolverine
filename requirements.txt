@@ -4,6 +4,7 @@ billiard==3.6.0.0
 celery==4.3.0
 cycler==0.10.0
 Django==2.2.1
+django-crispy-forms==1.7.2
 flower==0.9.3
 kiwisolver==1.1.0
 kombu==4.5.0
