@@ -39,8 +39,7 @@
 - [x] Salvar e carregar arquivos de diretório específico (ENV)
 - [x] Carregar arquivo do modelo de diretório específico (ENV)
 - [ ] Fluxos de exceção nas telas
-- [ ] Redirect e flash nos formulários
-- [ ] Tradução para Português
+- [x] Redirect e flash nos formulários
 
 
 ## Rodando o Projeto
@@ -57,7 +56,7 @@ celery worker -A worker.wolverine_workers
 
 ### Flower
 ```
-celery -A worker.wolverine_workers flower
+celery worker -A worker.wolverine_workers --concurrency=1
 ```
 
 ### Django Development Server

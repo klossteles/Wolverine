@@ -41,12 +41,12 @@ def cgne(request):
             signal_input.owner = request.user
             signal_input.save()
 
-            task = worker.wolverine_workers.process_with_cgne.delay(signal_input.id)
-            message = 'The file is being processed with id: {}'.format(task.task_id)
+            worker.wolverine_workers.process_with_cgne.delay(signal_input.id)
+            return redirect('dashboard')
         else:
             message = 'You must select a file'
+            return render(request, 'cgne.html', {'form': form, 'error': message})
 
-        return render(request, 'cgne.html', {'form': form, 'message': message})
     else:
         form = UploadFileForm()
         return render(request, 'cgne.html', {'form': form})
