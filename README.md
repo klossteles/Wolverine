@@ -40,6 +40,7 @@
 - [ ] Carregar arquivo do modelo de diretório específico (ENV)
 - [ ] Fluxos de exceção nas telas
 - [ ] Redirect e flash nos formulários
+- [ ] Tradução para Português
 
 
 ## Rodando o Projeto
