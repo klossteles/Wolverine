@@ -3,7 +3,7 @@ import zipfile
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 import worker
 from userint.forms import UploadFileForm
@@ -37,8 +37,7 @@ def cgne(request):
 @login_required
 def cgne_details(request, signal_output_id):
     from userint.models import SignalOutput
-
-    signal_output = SignalOutput.objects.get(pk=signal_output_id)
+    signal_output = get_object_or_404(SignalOutput, pk=signal_output_id)
     if signal_output.signal_input.owner != request.user:
         return HttpResponseNotFound()
 
@@ -71,7 +70,6 @@ def image(request, task_id):
 def download_images(request):
     field_names = [field_name for field_name in request.POST if 'signaloutput' in field_name]
     signal_output_ids = [signaloutput_id.split('_')[1] for signaloutput_id in field_names]
-    print(signal_output_ids)
 
     from userint.models import SignalOutput
     signal_outputs = SignalOutput.objects.filter(pk__in=signal_output_ids)
