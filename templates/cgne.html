@@ -10,7 +10,7 @@
   <h1 class="mt-5">Upload Signal File</h1>
 
   {% if message %}
-    <div class="alert alert-error alert-dismissible fade show" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
       {{ message }}
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -29,6 +29,12 @@
         <input type="file" class="custom-file-input" id="file" name="file">
         <label class="custom-file-label" for="file">Choose file</label>
       </div>
+    </div>
+    <div class="form-group">
+      <label for="result_size">Model size</label>
+      <select class="form-control" id="model_size" name="model_size">
+        <option value="3600">60 x 60</option>
+      </select>
     </div>
 
     <button type="submit" class="btn btn-success">Upload</button>

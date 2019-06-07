@@ -41,11 +41,13 @@ def cgne(request):
             signal_input.owner = request.user
             signal_input.save()
 
-            worker.wolverine_workers.process_with_cgne.delay(signal_input.id)
+            print(request.POST['model_size'])
+
+            worker.wolverine_workers.process_with_cgne.delay(signal_input.id, request.POST['model_size'])
             return redirect('dashboard')
         else:
-            message = 'You must select a file'
-            return render(request, 'cgne.html', {'form': form, 'error': message})
+            message = 'You must select a file and a valid model size'
+            return render(request, 'cgne.html', {'form': form, 'message': message})
 
     else:
         form = UploadFileForm()

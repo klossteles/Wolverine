@@ -14,14 +14,14 @@ app.config_from_object('django.conf:settings')
 
 
 @app.task()
-def process_with_cgne(signal_input_id):
+def process_with_cgne(signal_input_id, model_size):
     from userint.models import SignalInput, SignalOutput
 
     started_at = datetime.now()
 
     signal_input = SignalInput.objects.get(pk=signal_input_id)
 
-    result, iteration_qty, size_in_pixels = cgne.cgne(signal_input.input_filename)
+    result, iteration_qty, size_in_pixels = cgne.cgne(signal_input.input_filename, model_size)
 
     task_id = process_with_cgne.request.id
     username = signal_input.owner.username

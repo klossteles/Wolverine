@@ -9,6 +9,7 @@
 # Imagem A, 60x60 pixels, H(50816x3600), g(50816x1):
 
 import csv
+import os
 import time
 
 import numpy as np
@@ -17,14 +18,19 @@ import numpy.linalg as la
 from wolverine import settings
 
 
-def cgne(signal_filename):
+AVAILABLE_MODELS = [
+    (3600, os.path.join(settings.BASE_DIR, 'cgne/model.txt'))
+]
+
+
+def cgne(signal_filename, model_size):
     start_time = time.time()
 
     g = read_matrix_from_file(signal_filename)
 
     size_in_pixels = g.shape[0] * g.shape[1]
 
-    h = read_matrix_from_file(settings.MODEL_FILENAME)
+    h = read_matrix_from_file(get_signal(model_size))
     h = np.transpose(h)
 
     r = g
@@ -88,3 +94,11 @@ def get_beta(r_next, r):
     beta1 = np.matmul(np.transpose(r), r)
     beta = np.divide(beta0, beta1)
     return beta
+
+
+def get_signal(model_size):
+    for available_model in AVAILABLE_MODELS:
+        if int(model_size) == available_model[0]:
+            return available_model[1]
+
+    raise Exception('Model not found')

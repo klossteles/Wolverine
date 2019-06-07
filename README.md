@@ -26,7 +26,7 @@
 #### Implementar um servidor para reconstrução de imagens:
 
 - [x] Receber os dados para reconstrução;
-- [ ] Carregar o modelo de reconstrução de acordo com os parâmetros recebidos;
+- [x] Carregar o modelo de reconstrução de acordo com os parâmetros recebidos;
 - [x] Executar o algoritmo de reconstrução;
 - [x] Executar até que a norma L2 do resíduo (r) seja menor do que 1e10-4 .
 - [x] Salvar o resultado.
