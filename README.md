@@ -51,12 +51,12 @@ docker run --rm --name wolverine -p 6379:6379 redis
 
 ### Celery
 ```
-celery worker -A worker.wolverine_workers
+celery worker -A worker.wolverine_workers --concurrency=1
 ```
 
 ### Flower
 ```
-celery worker -A worker.wolverine_workers --concurrency=1
+celery -A worker.wolverine_workers flower
 ```
 
 ### Django Development Server
