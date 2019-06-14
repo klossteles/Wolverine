@@ -27,7 +27,7 @@ def process_with_cgne(signal_input_id, model_size):
     username = signal_input.owner.username
 
     output_filename = os.path.join(utils.userpath(username), '{}.png'.format(task_id))
-    plt.imsave(output_filename, result)
+    plt.imsave(output_filename, result, cmap='gray')
 
     signal_output = SignalOutput()
     signal_output.signal_input = signal_input
