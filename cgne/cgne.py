@@ -42,7 +42,8 @@ def cgne(signal_filename, model_size):
 
     # 4.    Executar até que a norma L2 do resíduo (r) seja menor do que 1e10-4 .
     iteration = 0
-    while la.norm(r) >= 0.0001:
+    err = 1
+    while err >= 0.00001 and iteration < 100:
         # GET alpha i
         alpha = get_alpha(p, r)
 
@@ -62,12 +63,16 @@ def cgne(signal_filename, model_size):
         aux = np.multiply(beta, p)
         p_next = np.add(aux1, aux)
 
+        err = la.norm(r) - la.norm(r_next)
+
         # Atualizar valores antigos
         r = r_next
         p = p_next
         f = f_next
 
         iteration += 1
+
+        print(iteration, err)
 
     final = np.reshape(f, (60, 60))
 
